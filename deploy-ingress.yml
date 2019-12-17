@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: apps
+  name: game-processor
+spec:
+  rules:
+  - host: game-processor.thetablestop.com
+    http:
+      paths:
+      - backend:
+          serviceName: game-processor
+          servicePort: 8080
+  tls:
+  - hosts:
+    - game-processor.thetablestop.com
+    secretName: star-thetablestop-com

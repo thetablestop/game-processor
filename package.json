@@ -1,0 +1,41 @@
+{
+    "name": "game-processor",
+    "version": "1.0.0",
+    "description": "Use this as a template to build a node application.",
+    "main": "src/server.js",
+    "scripts": {
+        "test": "echo \"Warn: no test specified\" && exit 0",
+        "start": "nodemon -r esm src/server.js",
+        "serve": "node -r esm src/server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:thetablestop/game-processor.git"
+    },
+    "author": "Evan Kaiser",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "chalk": "^3.0.0",
+        "cors": "^2.8.5",
+        "esm": "^3.2.25",
+        "express": "^4.17.1",
+        "moment": "^2.24.0"
+    },
+    "devDependencies": {
+        "husky": "^3.1.0",
+        "nodemon": "^2.0.1",
+        "prettier": "^1.19.1",
+        "pretty-quick": "^2.0.1"
+    },
+    "prettier": {
+        "printWidth": 140,
+        "tabWidth": 4,
+        "singleQuote": true
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged"
+        }
+    }
+}

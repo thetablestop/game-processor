@@ -1,0 +1,14 @@
+stages:
+- name: Deploy
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yml
+  - applyYamlConfig:
+      path: ./deploy-ingress.yml
+notification:
+  recipients:
+  - recipient: builds
+    notifier: c-qgf2m:n-fldgj
+  condition:
+  - Success
+  - Failed

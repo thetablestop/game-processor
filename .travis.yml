@@ -1,0 +1,36 @@
+if: tag IS blank
+language: node_js
+node_js:
+- 12
+env:
+  matrix:
+  - VERSION_PREFIX=1.0
+  global:
+  - secure: OUrT9OvhtO3cdbPp8qyFItmiMS2YZ1DkFyNF2C4OuogW8IQYQD1jWFYHk9R4XwV+MxetTF/7IRkvPzwUareIyr/ivoOevSQYacmzzTTzkJykkaPl7n8FdcrvGc8FHloDJ/j345w+GOlf5hRe88Gz1AirU+9DrK/MD7/3cHBTzeIQZv2xyM4LbkvGI7nYtVJ7FQfm0nniD2DuR/6v7sFAax7SV0QLVSj8NSKTvp2PdT19UmZ2KQMZbp6ISKZcvz8lGmEy+34Fej+d0LTkbH9ZP/WIcM7Dj/s7zOEtw19zTQIRxa1OtlBjNGXpM0VA8Pj3yRvXUdE6kuMxVvwNdLq/EdqNi8/54EvWgcsw9h/XEJlIHwgqH6lU7tJwf4JuGljqqk15Y+O3ZSZDZVxyFJ82qTseUVFQVm90nmhxqKRyXlQPLHmpgrmSTF4T7f92rOoiFCE0Uhq1rEqjaIT2yJ93oNTKC23h0bg3QfICKZ40Lqy3JJRxXS/UfWHRVkUhg1pughc5HxEbhNWdq8bP18nCAKOC4FlS8UgvsEeLeTnUCcU+rA/0AKuqbmaA1om9Gh/IgCl5NrW2XnsBfGYrAcv1PDu1jU0pSlF+HTtBjfDu0cGJdEsk8kNO+VYOXi+HzJm4r+TvYxs1TwcEhRVCk5aQfjPWNNG/sx5ymCJAB2f0WBo=
+  - secure: BSCrDUj0L66S6fpHgx8E85RvNuFWeQdS4weWuoV7J3tTJKENJuEidHEXu6TTJNpq8iTRua83A2UBvPl1myrWaRHEfRIo0Y89IgKn1K1XGHJiazCciPkinO0mRrzr9cxFNbRTCnOtK4nimqA3azFHRxqCLWYYwEc4r3W7rD65GVFrZL7IYKwPtoQw/4agj5hhOktB5ATWmooGB6kkIpnNLZlu6FYdrdFBnMgFJ37Ooo1Et3XjgRY+I2Myu07aCkm51C8Wu4y55TItcfMmZ9l9mSeAM/hqEEqbXA9ThXrl4Jy/HfaahEv+ni6kJMt8oMKkAGxLbJXmN0XaloTnYjdRqp23dGihbB+Rep209XBQezWNWq4uUWE7o6jXT2XwQbOQSzRTwWaG5W8z8PBoZCbuKft1mGCLT6NtXL0i4A9uUkbzjjimbmyjpjbG9vazyGFfs9rE/poCy0B/zI77nWPWJwg79XJnBv7KjVCFrX0YN+HB2N4hW8FVzX+ptnBKggBgG6hUaHcxoThwXQWxFZUFCHnNkqGyKZSUNc6iwNv9/sUiAK46FU6v2xcby22S8nTxt4wBkvFrJS+Okd1ZtNRoPLbZT3m7vov50xp22aw5eSmM1/J/EoovXVVPQJ8LJAHaAG5HEyXjJVwMAjzQNpuB4rzrhrqYIHiTlwnzZSr6nAI=
+  - secure: HrQGdZ1UtNhA4Uh4Zma/pDBCeS9X+od6FL28bbSu0PhVMoVUXu+r0FXen3ILXnyWMFX3JDFYHbxUQaDIJUs66EO2R2j9zoh1YB+RoUXviKdAlHq3Rx2Tw0CbUuONbHiMCkJ5w7EbBmJhvdT90e7j+cgjpDjVKRffpfjjGbmvQa15wY15RUWsK3IaPilX8w/In1cSVvKQVWtzXBvvy7BbVCRzImZ57IoHEBZjUm+IPcnLU6E4mZLE4Dto6H5npRgBv1vSuWzl+BwnGvs6IjtDnoTuWOOBkw2WlS/54CQxJACOm6cIFA5e0dmROguDAvM9QEtNyPKTA4R+vmlMDIhv6EqN6XyQul7QnttzPM1vWlQkmI5DLT1iccoQ+zMRV61kbpBp7aWprkAsbsWwCIyEq8tvuuoLW19+/snuW9BHB2FlnUX+H9AaQxtnevfx3AF6MjLdH2Hyq7F3az0l2A9rpeA7eRYXAW5pNtfoxyLFnGyzjlH7qs066mRlIuXWI5qs2nIeymEsghyrv3J8RXmffrmRuyAJKcwQg45W1Vvm95DkBQDWc8dvdz+NKuTndLba6tp9+0iwyCmO98JoTvVp7cA6dGouUE5cHmCBmjFZcvi8a3bQLuGr3KVe/ifH0U8Cqnzoz6uc8JN6vBUQfl0AUWOXPhJPOsUWnfVGZ3Pn5GA=
+  - secure: FnDhmwl7eMg9bNfZR+nTr9PS0IlZGjPHtzHMxe18bg0Ci1FLJcP00qa0WuF7HMgPmIwDsu7FEA0xdpShxh4oiyDhB+5g6p+V66Ilhq4i0NRsQ2vSJrQ5tTruxNuZ1njze33MlsIg0LEEdQHSh+eX9xxE1dOoHUObCA7g1jJIfi3r4ii+2JlC0Qd8ajObkQ5bgiuzEBEJb35qbpIVovUWM6g4LOKJzk+szqYqijH7U444YflI0C8R7ESHEBwFZmcqjl4GQgCltwDx5DnfDwrkjkQsn6IlrSHtyWmnfm5Apmm3llUyPhpHf441KmwYQ5m9dw2wnJ1MMIHAVT3nHgVe6FnUy8f38sKguitSkLGwI6MlBcSfyDCMcMnKNXBOfMCC50hRGZlOiJLTnElIihA0voVlcCQi3sUqZAosNExeD0hvjtqMyxGoF24RODHzeyQZ6qAtJ7LCGXqaD8Y0vYBEGwHkRxo6CqU6nkVxvwKQiIA/In6/jBoANjkyyVL7pcLFMmYUf6ZQ2xbarBOdCMZhe94fBtTJ57Dz7opGyYWhWy3JUa8TQ8DtbTh9SrefDqbK4r6SPO52OjWWBhWNZpYHaN3HiyzQSGXMNqoMWSzlkfsJlA/Qz3hnAbYLFxtvRe71DwSJCy6SVd8+UGpFbVGuTP63/lbxORzz0EYtZGXWSGg=
+notifications:
+  slack:
+    secure: SkP0me7cRlSefGTXtk/p52Rs5QFDku/AE5n5hVOsaNkUZ03IHSO0ClC13EoH1b++Tfmg00wnNdLvcJQnD/WC8QQiObK+cqfg1x3VDVlAvuPG5g8SRTp8BDhL6Jeftlv2BUMlSArFTWVQLryD8gu8I0Wm04pQD7+OC4tkKXu8Km3M2UTSdf0tre80RLpxhbqXrGO+UTup+TZDBm9/izZkQITl2BeEI1p3kWEqFKFTCzk+6YHnW0bC6aWw1WpDcxmdNx6npcMwvzEctwlcsHmu+aHKGJcBYoCIwB7kf7rLNhTIgmv6GVcoIseDtKZKoir8O0JQhfzDcS6wX0aFDXiz5pzeA58xN0sHyKmpho9nsULv4WvXtoseuSldPVs9cMjU+TCBWVmvPN4fQoaVvRlxN22I9G1bCzJpINe+tf2Og6fcZqBc5v+Q15MUQOVPNHX3VGISvPGqPHYxLokvM/gW/qB9UdU36Ufnu1i4FhGc7FEY9SMSWO4g4ACae7QpOoVWHuuo+HWihFMxpaikGI42B56qV5s+tagR2XhG8VgRZrL7adZybMRPdCgtjgUM6YfBj6PrewDBfx+r+VBLmOWZFWPYbeqcciWxkYhk+CYruz1VKmT9jbFeHczw2U4WHEPA2COn7F5c4mc2EMLpInJ4dge9MXlLk3WeIjo4a8ar3ow=
+services:
+- docker
+jobs:
+  include:
+    - node_js: 12
+    - stage: deploy
+      if: (NOT type IN (pull_request)) AND (branch = master)
+      script:
+      - export FULL_VERSION=$VERSION_PREFIX.$TRAVIS_BUILD_NUMBER
+      - export REPO_TAGGED=$TRAVIS_REPO_SLUG:$FULL_VERSION
+      - export REPO_LATEST=$TRAVIS_REPO_SLUG:latest
+      - echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build -t $REPO_TAGGED .
+      - docker tag $REPO_TAGGED $REPO_LATEST
+      - docker push $REPO_TAGGED
+      - docker push $REPO_LATEST
+      - git config --global user.email "builds@travis-ci.com"
+      - git config --global user.name "Travis CI"
+      - git remote add tagorigin https://$GH_USERNAME:$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG.git
+      - git tag $FULL_VERSION -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
+      - git push tagorigin --tags

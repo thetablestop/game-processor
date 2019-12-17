@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: apps
+  name: game-processor
+  labels:
+    workload.user.cattle.io/workloadselector: deployment-apps-game-processor
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-apps-game-processor
+  template:
+    metadata:
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-apps-game-processor
+    spec:
+      containers:
+      - name: game-processor
+        image: thetablestop/game-processor
+        imagePullPolicy: Always
+        env:
+        - name: NODE_ENV
+          value: Production
+        - name: NODE_PORT
+          value: "8080"
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+            scheme: HTTP
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+            scheme: HTTP
+        volumeMounts:
+        - mountPath: /mnt/nodeshared
+          name: nodeshared
+      volumes:
+      - hostPath:
+          path: /mnt/host
+          type: DirectoryOrCreate
+        name: nodeshared
