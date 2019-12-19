@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
         <h2>Version: ${pkg.version}</h2>`);
     });
 
-const port = process.env.NODE_PORT || 3000;
+const port = process.env.NODE_PORT || 3004;
 httpServer.listen(port);
 console.log(`Listening on http://localhost:${port}`);
 
