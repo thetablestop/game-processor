@@ -10,19 +10,19 @@ export class GameService {
         return await collection.findOne({ name: name });
     }
 
-    async upsert(name, sourceName, link) {
+    async upsert(name, propertyName, propertyValue) {
         const dbo = await this.mongodbProvider.connect();
         const collection = dbo.collection(this.collectionName);
+
+        const dynamicProperty = {};
+        dynamicProperty[propertyName] = propertyValue;
+
         return collection.findOneAndUpdate(
             {
                 name: name
             },
             {
-                $set: {
-                    name: name,
-                    link: link,
-                    sourceName: sourceName
-                }
+                $set: dynamicProperty
             },
             {
                 returnOriginal: false,
