@@ -9,7 +9,7 @@ import { MongoClient } from 'mongodb';
 import { GameService } from './services/game-service.js';
 import { GameSourcesService } from './services/game-sources-service.js';
 import { GameSourcesController } from './controllers/game-sources-controller.js';
-import { GameParseService } from './services/game-parse-service.js';
+import { GameProcessService } from './services/game-process-service.js';
 
 const container = awilix.createContainer({
     injectionMode: awilix.InjectionMode.PROXY
@@ -48,12 +48,14 @@ container.register({
         return {
             connect: async () => {
                 const conn = await amqp.connect(process.env.RABBITMQ_PUBSUB_CONNECTION);
-                return await conn.createChannel();
+                const ch = await conn.createChannel();
+                ch.prefetch(1); // Only grab one message at a time. I don't think this works though
+                return ch;
             }
         };
     }),
     gameSourcesController: awilix.asClass(GameSourcesController).scoped(),
-    gameParseService: awilix.asClass(GameParseService).singleton(),
+    gameProcessService: awilix.asClass(GameProcessService).singleton(),
     gameService: awilix.asClass(GameService).scoped(),
     gameSourcesService: awilix.asClass(GameSourcesService).scoped()
 });
@@ -75,7 +77,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
         <h2>Version: ${pkg.version}</h2>`);
     })
     .get('/status', async (req, res) => {
-        let result = `Poller Task: ${container.cradle.gameParseService.paused ? 'Paused' : 'Active'}<br />`;
+        let result = `Poller Task: ${container.cradle.gameProcessService.paused ? 'Paused' : 'Active'}<br />`;
         try {
             await container.cradle.mongodbProvider.connect();
             result += 'DB connection: Successful<br />';
@@ -102,11 +104,11 @@ httpServer.listen(port);
 console.log(`Listening on http://localhost:${port}`);
 
 // Setup job
-container.cradle.gameParseService.paused = true;
+container.cradle.gameProcessService.paused = true;
 const poll = async () => {
     try {
-        await container.cradle.gameParseService.parse();
-        if (!container.cradle.gameParseService.paused) {
+        await container.cradle.gameProcessService.process();
+        if (!container.cradle.gameProcessService.paused) {
             setTimeout(poll, (process.env.TASK_INTERVAL || 60) * 1000);
         }
     } catch (err) {
@@ -156,7 +158,7 @@ router
             res.sendStatus(401);
         }
 
-        container.cradle.gameParseService.paused = true;
+        container.cradle.gameProcessService.paused = true;
         res.send('Task Paused');
     })
     .get('/task/resume', (req, res) => {
@@ -164,7 +166,7 @@ router
             res.sendStatus(401);
         }
 
-        container.cradle.gameParseService.paused = false;
+        container.cradle.gameProcessService.paused = false;
         poll();
         res.send('Task Resumed');
     });
