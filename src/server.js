@@ -103,18 +103,8 @@ const port = process.env.NODE_PORT || 3004;
 httpServer.listen(port);
 console.log(`Listening on http://localhost:${port}`);
 
-// Setup job
-container.cradle.gameProcessService.paused = true;
-const poll = async () => {
-    try {
-        await container.cradle.gameProcessService.process();
-        if (!container.cradle.gameProcessService.paused) {
-            setTimeout(poll, (process.env.TASK_INTERVAL || 60) * 1000);
-        }
-    } catch (err) {
-        console.error(err);
-    }
-};
+// Run main neverending process
+container.cradle.gameProcessService.process();
 
 // Setup routes
 router
@@ -152,21 +142,4 @@ router
     .get('/source/:name', async (req, res) => await req.scope.resolve('gameSourcesController').find(req, res))
     .delete('/source/:name', async (req, res) => await req.scope.resolve('gameSourcesController').delete(req, res))
     .post('/source', async (req, res) => await req.scope.resolve('gameSourcesController').insert(req, res))
-    .patch('/source', async (req, res) => await req.scope.resolve('gameSourcesController').update(req, res))
-    .get('/task/pause', (req, res) => {
-        if (!req.user) {
-            res.sendStatus(401);
-        }
-
-        container.cradle.gameProcessService.paused = true;
-        res.send('Task Paused');
-    })
-    .get('/task/resume', (req, res) => {
-        if (!req.user) {
-            res.sendStatus(401);
-        }
-
-        container.cradle.gameProcessService.paused = false;
-        poll();
-        res.send('Task Resumed');
-    });
+    .patch('/source', async (req, res) => await req.scope.resolve('gameSourcesController').update(req, res));

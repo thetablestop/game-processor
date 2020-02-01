@@ -14,10 +14,8 @@ export class GameProcessService {
     }
 
     async process() {
-        while (!this.paused) {
-            console.log(`Checking ${this.gamesQueueName} queue for game to process...`);
-            await this.getQueuedGame();
-        }
+        console.log(`Checking ${this.gamesQueueName} queue for game to process...`);
+        await this.getQueuedGame();
     }
 
     async getQueuedGame() {
@@ -57,7 +55,9 @@ export class GameProcessService {
                     console.log(chalk.green(`Fetching '${selectorName}' for '${game.name}' from ${gamePageUrl.href}`));
                     response = await axios.get(scraperUrl.href);
                     console.log(
-                        chalk.green(`'${selectorName}' is '${response.data[0].content}' for '${game.name}' from ${gamePageUrl.href}`)
+                        chalk.blue(
+                            `'${selectorName}': '${response.data[0].content}' ` + chalk.green(`for '${game.name}' from ${gamePageUrl.href}`)
+                        )
                     );
                 } catch (err) {
                     console.error(
