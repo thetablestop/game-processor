@@ -24,6 +24,9 @@ spec:
           value: Production
         - name: NODE_PORT
           value: "8080"
+        envFrom:
+        - secretRef:
+            name: pod-env-vars
         ports:
         - containerPort: 8080
           name: http
