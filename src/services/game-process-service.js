@@ -45,19 +45,31 @@ export class GameProcessService {
         const source = await this.gameSourceService.find(queueItem.sourceName);
         const game = await this.gameService.find(queueItem.name);
 
-        if (source.contentSelectors) {
+        if (source.contentSelectors || source.htmlContentSelectors) {
             let response = null;
             try {
-                const selectorNames = Object.keys(source.contentSelectors);
-                response = await this._scrape(
-                    source,
-                    game,
-                    selectorNames.map(x => ({
-                        name: x,
-                        type: 'text',
-                        selector: source.contentSelectors[x]
-                    }))
-                );
+                const allSelectors = [];
+                if (source.contentSelectors) {
+                    const selectorNames = Object.keys(source.contentSelectors);
+                    allSelectors.push(
+                        ...selectorNames.map(x => ({
+                            name: x,
+                            type: 'text',
+                            selector: source.contentSelectors[x]
+                        }))
+                    );
+                }
+                if (source.htmlContentSelectors) {
+                    const selectorNames = Object.keys(source.htmlContentSelectors);
+                    allSelectors.push(
+                        ...selectorNames.map(x => ({
+                            name: x,
+                            type: 'html',
+                            selector: source.htmlContentSelectors[x]
+                        }))
+                    );
+                }
+                response = await this._scrape(source, game, allSelectors);
             } catch (err) {
                 console.error(chalk.red(`Error occured while fetching selectors for '${game.name}'`, err));
             }
