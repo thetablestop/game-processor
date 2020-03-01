@@ -31,4 +31,23 @@ export class GameService {
             }
         );
     }
+
+    async upsertMultiple(name, properties) {
+        const dbo = await this.mongodbProvider.connect();
+        const collection = dbo.collection(this.collectionName);
+
+        return collection.findOneAndUpdate(
+            {
+                name: name
+            },
+            {
+                $set: properties
+            },
+            {
+                returnOriginal: false,
+                sort: [['name', 1]],
+                upsert: true
+            }
+        );
+    }
 }
