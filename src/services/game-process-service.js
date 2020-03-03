@@ -42,12 +42,12 @@ export class GameProcessService {
     }
 
     async fetchGameContent(queueItem) {
-        const source = await this.gameSourceService.find(queueItem.sourceName);
-        const game = await this.gameService.find(queueItem.name);
+        let response = null;
+        try {
+            const source = await this.gameSourceService.find(queueItem.sourceName);
+            const game = await this.gameService.find(queueItem.name);
 
-        if (source.contentSelectors || source.htmlContentSelectors) {
-            let response = null;
-            try {
+            if (source.contentSelectors || source.htmlContentSelectors) {
                 const allSelectors = [];
                 if (source.contentSelectors) {
                     const selectorNames = Object.keys(source.contentSelectors);
@@ -70,29 +70,29 @@ export class GameProcessService {
                     );
                 }
                 response = await this._scrape(source, game, allSelectors);
-            } catch (err) {
-                console.error(chalk.red(`Error occured while fetching selectors for '${game.name}'`, err));
             }
+        } catch (err) {
+            console.error(chalk.red(`Error occured while fetching selectors for '${game.name}'`, err));
+        }
 
-            if (response && response.data && Array.isArray(response.data)) {
-                try {
-                    const dynamicProperties = {};
-                    for (const d of response.data) {
-                        let value = d.results[0].content;
-                        if (source.postProcessors) {
-                            const func = source.postProcessors[d.name];
-                            if (func) {
-                                value = eval(func)(value);
-                            }
+        if (response && response.data && Array.isArray(response.data)) {
+            try {
+                const dynamicProperties = {};
+                for (const d of response.data) {
+                    let value = d.results[0].content;
+                    if (source.postProcessors) {
+                        const func = source.postProcessors[d.name];
+                        if (func) {
+                            value = eval(func)(value);
                         }
-
-                        dynamicProperties[d.name] = value;
                     }
-                    await this.gameService.upsertMultiple(game.name, dynamicProperties);
-                    console.log(chalk.green(`Updated DB for '${game.name}: ${JSON.stringify(dynamicProperties)}`));
-                } catch (err) {
-                    console.error(chalk.red(`Error updating DB record for ${response.content}`, err));
+
+                    dynamicProperties[d.name] = value;
                 }
+                await this.gameService.upsertMultiple(game.name, dynamicProperties);
+                console.log(chalk.green(`Updated DB for '${game.name}: ${JSON.stringify(dynamicProperties)}`));
+            } catch (err) {
+                console.error(chalk.red(`Error updating DB record for ${response.content}`, err));
             }
         }
     }
