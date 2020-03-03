@@ -23,18 +23,22 @@ container.register({
         return {
             connect: async () => {
                 return new Promise((res, rej) => {
-                    MongoClient.connect(
-                        process.env.MONGODB_CONNECTION,
-                        {
-                            useUnifiedTopology: true
-                        },
-                        (err, client) => {
-                            if (err) rej(err);
-                            else {
-                                res(client.db(process.env.MONGODB_NAME || 'database'));
+                    try {
+                        MongoClient.connect(
+                            process.env.MONGODB_CONNECTION,
+                            {
+                                useUnifiedTopology: true
+                            },
+                            (err, client) => {
+                                if (err) rej(err);
+                                else {
+                                    res(client.db(process.env.MONGODB_NAME || 'database'));
+                                }
                             }
-                        }
-                    );
+                        );
+                    } catch (err) {
+                        rej(err);
+                    }
                 });
             }
         };
