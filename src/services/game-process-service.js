@@ -22,7 +22,12 @@ export class GameProcessService {
 
     async process() {
         console.log(`Checking ${this.gamesQueueName} queue for game to process...`);
-        await this.getQueuedGame();
+        try {
+            await this.getQueuedGame();
+        } catch (err) {
+            console.error('Error occurred connecting to queue, retrying in 60 seconds...', err);
+            setTimeout(process, 60 * 1000);
+        }
     }
 
     async getQueuedGame() {
